@@ -34,14 +34,19 @@
         borderStyle: 'black',
         list: [{
           pagePath: 'pages/home',
-          text: '首页',
-          iconPath: 'images/home/home.png',
-          selectedIconPath: 'images/home/home_select.png'
+          text: '作品',
+          iconPath: 'images/home.png',
+          selectedIconPath: 'images/home_select.png'
         }, {
           pagePath: 'pages/index',
-          text: '首页',
-          iconPath: 'images/home/home.png',
-          selectedIconPath: 'images/home/home_select.png'
+          text: '活动',
+          iconPath: 'images/recommend.png',
+          selectedIconPath: 'images/recommend_select.png'
+        }, {
+          pagePath: 'pages/index',
+          text: '我的',
+          iconPath: 'images/me.png',
+          selectedIconPath: 'images/me_select.png'
         }]
       }
     }
