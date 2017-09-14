@@ -1,0 +1,39 @@
+<style lang="less">
+
+</style>
+<template>
+
+
+
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class location extends wepy.page {
+    config = {
+      'navigationBarTitleText': '河西印象地址',
+      'navigationBarTextStyle': 'white',
+      'navigationBarBackgroundColor': '#27a87b'
+    }
+
+    components = {
+
+    }
+
+    mixins = []
+
+    data = {
+
+    }
+
+    methods = {}
+
+    events = {}
+
+    onLoad(option) {
+
+      console.log(option)
+
+    };
+  }
+</script>
