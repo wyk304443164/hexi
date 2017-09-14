@@ -337,7 +337,6 @@
     }
 
     //转发
-
     onShareAppMessage () {
       return {
         title: '河西印象',

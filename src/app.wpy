@@ -31,7 +31,7 @@
         color: '#888',
         selectedColor: '#27a87b',
         backgroundColor: '#fff',
-        borderStyle: 'white',
+        borderStyle: 'black',
         list: [{
           pagePath: 'pages/home',
           text: '首页',
