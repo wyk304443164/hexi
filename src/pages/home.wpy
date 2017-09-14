@@ -1,0 +1,346 @@
+<style lang="less">
+
+  Page, .body {
+    font-family: '\5FAE\8F6F\96C5\9ED1', arial;
+    background: #f4f4f4;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  swiper {
+    width: 100%;
+    height: 400rpx;
+  }
+
+  .slide-image {
+    width: 100%;
+    height: 100%;
+  }
+
+  .home-list-container {
+    position: relative;
+    padding: 1.5% 1.5% 0;
+
+    .item {
+      display: block;
+      text-decoration: none;
+      position: relative;
+      width: 47%;
+      float: left;
+      margin-bottom: 0;
+      padding: 1.5% 1.5%;
+
+      height: 160px;
+
+      .item-img {
+        width: 100%;
+        height: 120px;
+      }
+
+      .item-text {
+        height: 40px;
+        font-size: 14px;
+        color: #212121;
+        float: left;
+
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .clear {
+    clear: both;
+  }
+
+  .home-toTop {
+    position: fixed;
+    z-index: 3;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    display: block;
+
+    image {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  /*  加载更多   */
+  .weui-loading {
+    margin: 0 5px;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-animation: weuiLoading 1s steps(12, end) infinite;
+    animation: weuiLoading 1s steps(12, end) infinite;
+    background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgxMDB2MTAwSDB6Ii8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTlFOUU5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgLTMwKSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iIzk4OTY5NyIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgzMCAxMDUuOTggNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjOUI5OTlBIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDYwIDc1Ljk4IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0EzQTFBMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSg5MCA2NSA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNBQkE5QUEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoMTIwIDU4LjY2IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0IyQjJCMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgxNTAgNTQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjQkFCOEI5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDE4MCA1MCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDMkMwQzEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTE1MCA0NS45OCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDQkNCQ0IiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTEyMCA0MS4zNCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNEMkQyRDIiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwIDM1IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0RBREFEQSIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgtNjAgMjQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTJFMkUyIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKC0zMCAtNS45OCA2NSkiLz48L3N2Zz4=) no-repeat;
+    background-size: 100%;
+  }
+
+
+
+  .weui-loadmore {
+    line-height: 60px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .weui-loadmore__tips {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .input-container {
+    background: #27a87b;
+    padding: 10px 0;
+  }
+
+  .input-search {
+    width:25px;
+    height: 25px;
+    float: left;
+    margin: 2.5px 0 0 7px;
+  }
+
+  .inputView {
+    /*border: 1px solid #c1c1c1;*/
+    background: rgba(255,255,255,.3);
+    border-radius: 15px;
+    margin:0 15px;
+    float: left;
+    width: calc(~"100% - 30px");
+  }
+
+  .input {
+    padding-left: 7.5px;
+    height: 30px;
+    color: #fff;
+    font-size: 13px;
+  }
+
+</style>
+<template>
+  <view class="input-container">
+
+    <view class="inputView">
+      <image src="../images/home/search.png" class="input-search"></image>
+      <input
+        class="input"
+        placeholder="搜索"
+        confirm-type="search"
+        placeholder-style="color:white"
+        bindconfirm="inputConfirm"
+        bindinput="bindInput"
+      />
+
+    </view>
+
+    <view class="clear"></view>
+  </view>
+  <swiper indicator-dots="{{indicatorDots}}"
+          autoplay="{{autoplay}}"
+          interval="{{interval}}"
+          duration="{{duration}}"
+          circular="{{true}}">
+    <block wx:for="{{imgUrls}}" wx:key="{{item.img}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image"/>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <view class="home-list-container">
+
+    <repeat for="{{listData}}">
+      <view class="item" @tap="toPhotoDetail">
+        <image src="{{item.img}}" class="item-img" lazy-load="{{true}}"/>
+        <text class="item-text">{{item.text}}</text>
+      </view>
+    </repeat>
+
+    <view class="clear"></view>
+
+  </view>
+
+  <view class="weui-loadmore" wx:if="{{isShowLoadMore}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+
+  <view @tap="toTop" class="home-toTop">
+    <image src="https://s1.hdslb.com/bfs/static/mult/images/toTop1.png" alt="顶部"/>
+  </view>
+
+  <toast/>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Toast from 'wepy-com-toast'
+
+  const initData = [
+    {
+      img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      text: '大概是的吧等等大概是的吧等等大概是的吧等等大概是的吧等等大概是的吧等等大概是的吧等等大概是的吧等等',
+    },
+    {
+      img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      text: '大概是的吧等等',
+    },
+    {
+      img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      text: '大概是的吧等等',
+    }
+  ]
+
+  export default class Home extends wepy.page {
+    config = {
+      'navigationBarTitleText': '河西印象',
+      'navigationBarTextStyle': 'white',
+      'navigationBarBackgroundColor': '#27a87b',
+      'disableScroll': false,
+      'enablePullDownRefresh': true,
+      'backgroundTextStyle': 'dark'
+    }
+    components = {
+      toast: Toast
+    }
+
+    mixins = []
+
+    data = {
+      //TODO TEST Data
+      imgUrls: [
+        'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+        'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+      ],
+
+      listData: [].concat(initData),
+
+      indicatorDots: true,
+      autoplay: true,
+      interval: 5000,
+      duration: 300,
+
+      isShowLoadMore: false,//是不是显示加载更多
+      isLoadFinished: false,//是不是加载结束了
+
+      searchStr: '',//搜索框的内容
+    }
+
+    computed = {
+      now () {
+        return +new Date()
+      }
+    }
+
+    methods = {
+      toast () {
+        let promise = this.$invoke('toast', 'show', {
+          title: '自定义标题',
+          img: 'https://raw.githubusercontent.com/kiinlam/wetoast/master/images/star.png'
+        })
+
+        promise.then((d) => {
+          console.log('toast done')
+        })
+      },
+      toTop () {
+        if (wx.pageScrollTo) {
+          wx.pageScrollTo({
+            scrollTop: 0
+          })
+        } else {
+          wx.showModal({
+            title: '提示',
+            content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+          })
+        }
+      },
+
+      toPhotoDetail() {
+        wx.navigateTo({
+          //TODO TEST Data
+          url: `/pages/photodetail?id=${1}`,
+          success (res) {
+          }
+        })
+      },
+
+      inputConfirm () {
+        //监听回车键
+        //TODO TEST
+        wx.startPullDownRefresh && wx.startPullDownRefresh();
+        this.onPullDownRefresh();
+      },
+      bindInput (e) {
+        this.searchStr = e.detail.value;
+        this.$apply()
+      }
+    }
+
+    events = {
+      'index-emit': (...args) => {
+        let $event = args[args.length - 1]
+        console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
+      }
+    }
+
+    onLoad () {
+      this.addSomeTestData()
+    }
+
+    addSomeTestData () {
+      for (let i = 0; i < 10; i++) {
+        this.listData = this.listData.concat({
+          img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+          text: 'xxx'
+        })
+        this.$apply()
+      }
+    }
+
+    onPullDownRefresh () {
+      console.log('刷新')
+      setTimeout(() => {
+        this.listData = [].concat(initData)
+        this.isLoadFinished = false
+        this.$apply()
+        wx.stopPullDownRefresh()
+      }, 1000)
+    }
+
+    //加载更多
+    onReachBottom () {
+      if (this.isLoadFinished) {
+        return
+      }
+      this.isShowLoadMore = true
+      this.$apply()
+      console.log('加载更多')
+      setTimeout(() => {
+        //TODO TEST 只是简单判断是否加载结束
+        if (this.listData && this.listData.length >= 50) {
+          this.isLoadFinished = true
+          this.$apply()
+        } else {
+          this.addSomeTestData()
+        }
+        this.isShowLoadMore = false
+        this.$apply()
+      }, 1000)
+    }
+  }
+</script>
