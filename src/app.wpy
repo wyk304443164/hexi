@@ -23,10 +23,11 @@
         'pages/activity'
       ],
       window: {
-        backgroundTextStyle: 'light',
-        navigationBarBackgroundColor: '#27a87b',
-        navigationBarTitleText: '河西印象',
-        navigationBarTextStyle: '#888'
+        "backgroundTextStyle": 'light',
+        "navigationBarBackgroundColor": '#27a87b',
+        "navigationBarTitleText": '河西印象',
+        "navigationBarTextStyle": '#888',
+        "backgroundColor": "#f4f4f4",
       },
       tabBar: {
         color: '#888',
@@ -75,13 +76,16 @@
 
     async testAsync () {
       const data = await this.sleep(3)
-      console.log(data)
+//      console.log(data)
     }
 
     getUserInfo (cb) {
 
+      console.log('getUserInfo');
+
       const that = this
       if (this.globalData.userInfo) {
+        cb(this.globalData.userInfo);
         return this.globalData.userInfo
       }
 

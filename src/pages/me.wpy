@@ -1,9 +1,162 @@
 <style lang="less">
 
+  Page, .body {
+    font-family: '\5FAE\8F6F\96C5\9ED1', arial;
+    background: #f4f4f4;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .userTop {
+    text-align: center;
+    width: 100%;
+    position: relative;
+
+    .userImg {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      border: 5px solid rgba(215, 215, 215, 0.8);
+      margin-top: 20px;
+    }
+
+    .userName {
+      display: block;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: 300;
+    }
+
+    .infoIcon-container {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+
+      .icon-container {
+        position: relative;
+
+        .hint-icon {
+          width: 35px;
+          height: 35px;
+          background: #000;
+        }
+
+        .dot-icon {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: red;
+          right: 0;
+          top: 0;
+        }
+      }
+    }
+  }
+
+  .user-list {
+    margin-top: 30px;
+    background: #fff;
+
+    .item-line {
+      background: #eee;
+      height: 1px;
+    }
+
+    .item-line-in {
+      margin: 0 0 0 20px;
+    }
+
+    .item {
+      vertical-align: middle;
+      display:table-cell;
+      height: 50px;
+      width: 1%;
+      position: relative;
+
+      .left-img {
+        width: 25px;
+        height: 25px;
+        vertical-align: middle;
+        margin: 0 20px;
+      }
+
+      .item-text {
+        font-size: 14px;
+        font-weight: 300;
+      }
+
+      .item-go {
+        position: absolute;
+        top: 12.5px;
+        right: 10px;
+        width: 25px;
+        height: 25px;
+      }
+
+      button {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 50px;
+      }
+    }
+
+  }
+
 </style>
 <template>
 
-  <text>sss </text>
+  <view class="userTop">
+    <image src="{{userInfo.avatarUrl ? userInfo.avatarUrl : ''}}" class="userImg"></image>
+    <text class="userName">{{userInfo.nickName}}</text>
+
+    <view class="infoIcon-container">
+
+      <view class="icon-container">
+        <image class="hint-icon" src="../images/home/location.png"></image>
+        <image class="dot-icon"></image>
+      </view>
+
+    </view>
+
+  </view>
+
+  <view class="user-list">
+
+    <view class="item-line"></view>
+
+    <view class="item">
+      <image class="left-img" src="../images/me/me_us.png"></image>
+      <text class="item-text">联系我们</text>
+      <image src="../images/me/go.png" class="item-go"></image>
+    </view>
+
+    <view class="item-line item-line-in"></view>
+
+    <view class="item">
+      <image class="left-img" src="../images/me/me_fk.png"></image>
+      <text class="item-text">您的建议</text>
+      <image src="../images/me/go.png" class="item-go"></image>
+    </view>
+
+    <view class="item-line item-line-in"></view>
+
+    <view class="item">
+      <image class="left-img" src="../images/me/me_share.png"></image>
+      <text class="item-text">邀请分享</text>
+      <image src="../images/me/go.png" class="item-go"></image>
+      <button class="item-text" open-type="share"></button>
+    </view>
+
+    <view class="item-line"></view>
+
+  </view>
 
 </template>
 <script>
@@ -15,22 +168,47 @@
       'navigationBarTextStyle': 'white',
       'navigationBarBackgroundColor': '#27a87b'
     }
-    components = {
-
-    }
+    components = {}
 
     mixins = []
 
     data = {
-
+      userInfo: {},
     }
 
-    methods = {}
+    methods = {
+
+      showShare () {
+
+        console.log('xx');
+
+        this.onShareAppMessage();
+
+      }
+
+    }
 
     events = {}
 
     onLoad(option) {
 
+    };
+
+    onShow() {
+      let that = this;
+      this.$parent.getUserInfo(function (u) {
+        console.log(u);
+        that.userInfo = u;
+        that.$apply();
+      })
+    };
+
+    //转发
+    onShareAppMessage() {
+      return {
+        title: '河西印象',
+        path: '/pages/home'
+      }
     };
   }
 </script>
