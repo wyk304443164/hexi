@@ -3,19 +3,18 @@
 </style>
 <template>
 
-
+  <text>sss</text>
 
 </template>
 <script>
   import wepy from 'wepy'
 
-  export default class location extends wepy.page {
+  export default class activity extends wepy.page {
     config = {
-      'navigationBarTitleText': '河西印象地址',
+      'navigationBarTitleText': '活动',
       'navigationBarTextStyle': 'white',
       'navigationBarBackgroundColor': '#27a87b'
     }
-
     components = {
 
     }
@@ -31,8 +30,6 @@
     events = {}
 
     onLoad(option) {
-
-      console.log(option)
 
     };
   }

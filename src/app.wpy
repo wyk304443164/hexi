@@ -19,7 +19,8 @@
         'pages/home',
         'pages/index',
         'pages/photodetail',
-        'pages/location'
+        'pages/me',
+        'pages/activity'
       ],
       window: {
         backgroundTextStyle: 'light',
@@ -38,12 +39,12 @@
           iconPath: 'images/home.png',
           selectedIconPath: 'images/home_select.png'
         }, {
-          pagePath: 'pages/index',
+          pagePath: 'pages/activity',
           text: '活动',
           iconPath: 'images/recommend.png',
           selectedIconPath: 'images/recommend_select.png'
         }, {
-          pagePath: 'pages/index',
+          pagePath: 'pages/me',
           text: '我的',
           iconPath: 'images/me.png',
           selectedIconPath: 'images/me_select.png'

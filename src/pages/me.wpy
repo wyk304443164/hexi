@@ -3,7 +3,7 @@
 </style>
 <template>
 
-
+  <text>sss</text>
 
 </template>
 <script>
@@ -11,11 +11,10 @@
 
   export default class me extends wepy.page {
     config = {
-      'navigationBarTitleText': '河西印象地址',
+      'navigationBarTitleText': '我的',
       'navigationBarTextStyle': 'white',
       'navigationBarBackgroundColor': '#27a87b'
     }
-
     components = {
 
     }
@@ -31,9 +30,6 @@
     events = {}
 
     onLoad(option) {
-
-
-
 
     };
   }
