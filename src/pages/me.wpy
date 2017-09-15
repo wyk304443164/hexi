@@ -11,12 +11,12 @@
     position: relative;
   }
 
-  .userTop {
+  .user-top {
     text-align: center;
     width: 100%;
     position: relative;
 
-    .userImg {
+    .user-img {
       width: 75px;
       height: 75px;
       border-radius: 50%;
@@ -24,25 +24,25 @@
       margin-top: 20px;
     }
 
-    .userName {
+    .user-name {
       display: block;
       margin-top: 10px;
       font-size: 16px;
       font-weight: 300;
     }
 
-    .infoIcon-container {
+    .info-icon-container {
       position: absolute;
-      right: 10px;
-      top: 10px;
+      right: 0;
+      top: 0;
+      padding: 10px;
 
       .icon-container {
         position: relative;
 
         .hint-icon {
-          width: 35px;
-          height: 35px;
-          background: #000;
+          width: 25px;
+          height: 25px;
         }
 
         .dot-icon {
@@ -73,7 +73,7 @@
 
     .item {
       vertical-align: middle;
-      display:table-cell;
+      display: table-cell;
       height: 50px;
       width: 1%;
       position: relative;
@@ -112,15 +112,23 @@
 </style>
 <template>
 
-  <view class="userTop">
-    <image src="{{userInfo.avatarUrl ? userInfo.avatarUrl : ''}}" class="userImg"></image>
-    <text class="userName">{{userInfo.nickName}}</text>
+  <view class="user-top">
 
-    <view class="infoIcon-container">
+    <repeat>
+      <imagebrowse
+        :imageclass="'user-img'"
+        :imagelistbrowse.sync="userPhoto">
+      </imagebrowse>
+    </repeat>
+
+    <!--<image src="{{userInfo.avatarUrl ? userInfo.avatarUrl : ''}}" class="userImg"></image>-->
+    <text class="user-name">{{userInfo.nickName}}</text>
+
+    <view class="info-icon-container" @tap="showMessage">
 
       <view class="icon-container">
-        <image class="hint-icon" src="../images/home/location.png"></image>
-        <image class="dot-icon"></image>
+        <image class="hint-icon" src="../images/me/message.png"></image>
+        <view class="dot-icon"></view>
       </view>
 
     </view>
@@ -135,6 +143,7 @@
       <image class="left-img" src="../images/me/me_us.png"></image>
       <text class="item-text">联系我们</text>
       <image src="../images/me/go.png" class="item-go"></image>
+      <button class="item-text" open-type="contact"></button>
     </view>
 
     <view class="item-line item-line-in"></view>
@@ -162,53 +171,53 @@
 <script>
   import wepy from 'wepy'
 
+  import ImageBrowse from '../components/imagebrowse'
+
   export default class me extends wepy.page {
     config = {
       'navigationBarTitleText': '我的',
       'navigationBarTextStyle': 'white',
       'navigationBarBackgroundColor': '#27a87b'
     }
-    components = {}
+
+    components = {
+      imagebrowse: ImageBrowse,
+    }
 
     mixins = []
 
     data = {
       userInfo: {},
+      userPhoto: []
     }
 
     methods = {
-
-      showShare () {
-
-        console.log('xx');
-
-        this.onShareAppMessage();
-
-      }
-
+      //显示消息
+      showMessage () {
+        console.log('showMessage')
+      },
     }
 
     events = {}
 
-    onLoad(option) {
-
+    onLoad (option) {
     };
 
-    onShow() {
-      let that = this;
-      this.$parent.getUserInfo(function (u) {
-        console.log(u);
-        that.userInfo = u;
-        that.$apply();
+    onShow () {
+      this.$parent.getUserInfo(u => {
+        this.userInfo = u
+        this.userPhoto = u.avatarUrl ? [].concat(u.avatarUrl) : []
+        this.$apply()
       })
     };
 
     //转发
-    onShareAppMessage() {
+    onShareAppMessage () {
       return {
         title: '河西印象',
         path: '/pages/home'
       }
     };
+
   }
 </script>

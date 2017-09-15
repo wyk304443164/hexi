@@ -1,0 +1,63 @@
+<style lang="less">
+  .clear {
+    clear: both;
+  }
+</style>
+
+<template>
+  <view>
+    <block wx:for="{{imagelistbrowse}}" wx:for-item="image" wx:key="index">
+      <image
+        src="{{image}}"
+        data-src="{{image}}"
+        @tap="previewImage"
+        class="{{imageclass}}">
+      </image>
+    </block>
+    <view class="clear"></view>
+  </view>
+</template>
+
+<script>
+
+  import wepy from 'wepy'
+
+  export default class imagebrowse extends wepy.component {
+
+    props = {
+      imagelistbrowse: {
+//        coerce: function (v) {
+//          console.log('vvvvvvv    ' + v)
+//          return v ? [].concat(v) : []
+//        },
+        type: Array,
+        default: [],
+//        twoWay: true
+      },
+      imageclass: '',
+    }
+
+    data = {}
+
+    events = {}
+
+    methods = {
+      previewImage (e) {
+        console.log(e)
+        let current = e.target.dataset.src
+        wx.previewImage({
+          current: current, // 当前显示图片的http链接
+          urls: this.imagelistbrowse // 需要预览的图片http链接列表
+        })
+      }
+    }
+
+    onLoad () {
+      console.log('onLoad   ' + JSON.stringify(this.imagelistbrowse))
+    }
+
+    onShow () {
+      console.log('onShow   ' + JSON.stringify(this.imagelistbrowse))
+    }
+  }
+</script>

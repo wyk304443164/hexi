@@ -3,7 +3,11 @@
 </style>
 <template>
 
-  <text>sss</text>
+  <image
+    src="https://si.geilicdn.com/vshop812761651-1446742111041-43940-s1.jpg"
+    lazy-load="true"
+    mode="scaleToFill">
+  </image>
 
 </template>
 <script>

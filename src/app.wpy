@@ -80,9 +80,6 @@
     }
 
     getUserInfo (cb) {
-
-      console.log('getUserInfo');
-
       const that = this
       if (this.globalData.userInfo) {
         cb(this.globalData.userInfo);
@@ -164,7 +161,6 @@
     getRealUserInfo (that, cb) {
       wepy.getUserInfo({
         success (res) {
-          console.log(res)
           that.globalData.userInfo = res.userInfo
           cb && cb(res.userInfo)
         }, fail () {

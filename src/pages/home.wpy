@@ -12,14 +12,15 @@
   }
 
   swiper {
-    width: 100% - 6%;
+    width: 100%;
+    /*6%*/
     height: 150px;
-    margin: 3% 3% 0;
+    /*margin: 3% 3% 0;*/
   }
 
   .slide-image {
     height: 100%;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     width: 100%;
   }
 
@@ -109,9 +110,15 @@
     vertical-align: middle;
   }
 
+  /*background: #27a87b;*/
+
   .input-container {
-    background: #27a87b;
-    padding: 4px 0 6px;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#6f6f6f), to(rgba(0, 0, 0, 0)));
+    padding: 6px 0 6px;
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    width: 100%;
   }
 
   .input-search {
@@ -125,13 +132,32 @@
     margin-left: 15px;
   }
 
+  .image-kf {
+    margin-left: 5px;
+    position: relative;
+
+    image {
+      width: 100%;
+      height: 100%;
+    }
+
+    button {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+    }
+
+  }
+
   .inputView {
     /*border: 1px solid #c1c1c1;*/
-    background: rgba(255, 255, 255, .3);
+    background: rgba(255, 255, 255, .9);
     border-radius: 15px;
     margin: 0 15px;
     float: left;
-    width: calc(~"100% - 100px");
+    width: calc(~"100% - 120px");
   }
 
   .input {
@@ -147,19 +173,26 @@
     <image
       src="../images/home/location.png"
       class="input-search image-location"
-      @tap="toLocation"
-    ></image>
+      @tap="toLocation">
+    </image>
     <view class="inputView">
       <image src="../images/home/search.png" class="input-search"></image>
       <input
         class="input"
         placeholder="搜索"
         confirm-type="search"
-        placeholder-style="color:white"
+        placeholder-style="color:#888"
         bindconfirm="inputConfirm"
         bindinput="bindInput"
       />
+    </view>
 
+    <view class="input-search image-kf">
+
+      <image
+        src="../images/home/kf.png">
+      </image>
+      <button open-type="contact"></button>
     </view>
 
     <view class="clear"></view>
@@ -191,7 +224,7 @@
 
   <view class="weui-loadmore" wx:if="{{isShowLoadMore}}">
     <view class="weui-loading"></view>
-    <view class="weui-loadmore__tips">正在加载</view>
+    <view class="weui-loadmore__tips">正在加载...</view>
   </view>
 
   <view @tap="toTop" class="home-toTop">
@@ -332,7 +365,6 @@
 
     onShow () {
       this.$parent.getUserInfo(function (u) {
-        console.log(u)
       })
     }
 
