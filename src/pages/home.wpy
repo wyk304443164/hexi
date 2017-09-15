@@ -14,7 +14,7 @@
   swiper {
     width: 100%;
     /*6%*/
-    height: 150px;
+    height: 180px;
     /*margin: 3% 3% 0;*/
   }
 
@@ -119,6 +119,9 @@
     z-index: 99;
     top: 0;
     width: 100%;
+    display: flex;
+
+    align-items:center;
   }
 
   .input-search {
@@ -128,12 +131,17 @@
     margin: 2.5px 0 0 7px;
   }
 
+  .img-flex {
+    width: 25px;
+    height: 25px;
+  }
+
   .image-location {
     margin-left: 15px;
   }
 
   .image-kf {
-    margin-left: 5px;
+    margin-right: 15px;
     position: relative;
 
     image {
@@ -157,13 +165,14 @@
     border-radius: 15px;
     margin: 0 15px;
     float: left;
-    width: calc(~"100% - 120px");
+    /*width: calc(~"100% - 120px");*/
+    flex-grow: 1;
   }
 
   .input {
     padding-left: 7.5px;
     height: 30px;
-    color: #fff;
+    color: #888;
     font-size: 13px;
   }
 
@@ -172,7 +181,7 @@
   <view class="input-container">
     <image
       src="../images/home/location.png"
-      class="input-search image-location"
+      class="img-flex image-location"
       @tap="toLocation">
     </image>
     <view class="inputView">
@@ -187,15 +196,14 @@
       />
     </view>
 
-    <view class="input-search image-kf">
-
+    <view class="img-flex image-kf">
       <image
         src="../images/home/kf.png">
       </image>
       <button open-type="contact"></button>
     </view>
 
-    <view class="clear"></view>
+    <!--<view class="clear"></view>-->
   </view>
   <swiper indicator-dots="{{indicatorDots}}"
           autoplay="{{autoplay}}"
