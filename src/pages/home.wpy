@@ -121,7 +121,7 @@
     width: 100%;
     display: flex;
 
-    align-items:center;
+    align-items: center;
   }
 
   .input-search {
@@ -217,6 +217,12 @@
     </block>
   </swiper>
 
+  <!--分类-->
+
+  <home_class></home_class>
+
+  <home_recommend></home_recommend>
+
   <view class="home-list-container">
 
     <repeat for="{{listData}}">
@@ -245,6 +251,8 @@
 <script>
   import wepy from 'wepy'
   import Toast from 'wepy-com-toast'
+  import home_class from '../components/home/home_class'
+  import home_recommend from '../components/home/home_recommend'
 
   const initData = [
     {
@@ -273,7 +281,9 @@
     }
 
     components = {
-      toast: Toast
+      toast: Toast,
+      home_class: home_class,
+      home_recommend: home_recommend,
     }
 
     mixins = []
@@ -290,7 +300,7 @@
 
       indicatorDots: true,
       autoplay: true,
-      interval: 5000,
+      interval: 3000,
       duration: 300,
 
       isShowLoadMore: false,//是不是显示加载更多

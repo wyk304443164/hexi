@@ -1,0 +1,78 @@
+<style lang="less">
+
+  .item-base-container {
+    display: flex;
+    align-items: center;
+    background: #fff;
+
+    .item-container {
+      flex-grow: 1;
+      text-align: center;
+      padding: 10px 0;
+
+      image {
+        width: 30px;
+        height: 30px;
+      }
+
+      text {
+        display: block;
+        font-size: 13px;
+        color: #373737;
+        font-weight: 400;
+      }
+
+    }
+
+  }
+
+</style>
+
+<template>
+
+  <view class="item-base-container">
+
+    <block wx:for="{{itemClass}}" wx:key="index">
+      <view class="item-container">
+        <image src="{{item.img}}"></image>
+        <text>{{item.text}}</text>
+      </view>
+    </block>
+
+  </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class home_class extends wepy.component {
+    props = {}
+
+    data = {
+      itemClass: [
+        {
+          text: '店长推荐',
+          img: '../images/home/home_tj.png'
+        }, {
+          text: '体验套系',
+          img: '../images/home/home_ty.png'
+        }, {
+          text: '模卡',
+          img: '../images/home/home_mt.png'
+        }, {
+          text: '亲子写真',
+          img: '../images/home/home_qz.png'
+        }
+      ]
+    }
+
+    events = {}
+
+    methods = {}
+
+    onLoad () {
+
+    };
+  }
+</script>

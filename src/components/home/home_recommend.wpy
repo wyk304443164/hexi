@@ -1,0 +1,87 @@
+<style lang="less">
+
+  .item-base_recommend-container {
+    padding: 10px 0 0;
+    display: flex;
+    align-items: center;
+
+    .item-container {
+      text-align: center;
+      display: flex;
+      align-items: center;
+
+      image {
+        width: 22px;
+        height: 22px;
+        margin-left: 10px;
+      }
+
+      text {
+        font-size: 15px;
+        color: #373737;
+        font-weight: 400;
+        margin: 0 10px;
+      }
+
+    }
+
+    .line {
+      flex-grow: 1;
+      height: 1px;
+      background-color: #e1e1e1;
+    }
+
+  }
+
+</style>
+
+<template>
+
+  <view class="item-base_recommend-container">
+
+    <view class="line"></view>
+
+    <view class="item-container">
+      <image src="../images/home/home_recommend.png"></image>
+      <text>最新作品</text>
+    </view>
+
+    <view class="line"></view>
+
+  </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class home_class extends wepy.component {
+    props = {}
+
+    data = {
+      itemClass: [
+        {
+          text: '店长推荐',
+          img: '../images/home/home_tj.png'
+        }, {
+          text: '体验套系',
+          img: '../images/home/home_ty.png'
+        }, {
+          text: '模卡',
+          img: '../images/home/home_mt.png'
+        }, {
+          text: '亲子写真',
+          img: '../images/home/home_qz.png'
+        }
+      ]
+    }
+
+    events = {}
+
+    methods = {}
+
+    onLoad () {
+
+    };
+  }
+</script>
