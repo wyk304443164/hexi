@@ -10,7 +10,7 @@ npm install wepy-cli -g
 
 ### 2. 下载源代码
 ```bash
-git clone git@github.com:wepyjs/wepy-wechat-demo.git
+git clone git@github.com:wyk304443164/hexi.git
 ```
 
 ### 3. 安装开发依赖
