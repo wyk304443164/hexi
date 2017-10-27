@@ -7,6 +7,18 @@
     justify-content: space-between;
     box-sizing: border-box;
   }
+
+  Page, .body {
+    font-family: '\5FAE\8F6F\96C5\9ED1', arial;
+    background: #FAFAFC;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+  }
+
 </style>
 
 <script>
@@ -16,6 +28,7 @@
   export default class extends wepy.app {
     config = {
       pages: [
+        'pages/recommend',
         'pages/home',
         'pages/index',
         'pages/photodetail',
@@ -23,34 +36,37 @@
         'pages/activity'
       ],
       window: {
-        "backgroundTextStyle": 'light',
-        "navigationBarBackgroundColor": '#27a87b',
-        "navigationBarTitleText": '河西印象',
-        "navigationBarTextStyle": '#888',
-        "backgroundColor": "#f4f4f4",
-      },
-      tabBar: {
-        color: '#888',
-        selectedColor: '#27a87b',
-        backgroundColor: '#fff',
-        borderStyle: 'black',
-        list: [{
-          pagePath: 'pages/home',
-          text: '作品',
-          iconPath: 'images/home.png',
-          selectedIconPath: 'images/home_select.png'
-        }, {
-          pagePath: 'pages/activity',
-          text: '活动',
-          iconPath: 'images/recommend.png',
-          selectedIconPath: 'images/recommend_select.png'
-        }, {
-          pagePath: 'pages/me',
-          text: '我的',
-          iconPath: 'images/me.png',
-          selectedIconPath: 'images/me_select.png'
-        }]
+        'backgroundTextStyle': 'light',
+        'navigationBarBackgroundColor': '#323d4a',
+        'navigationBarTitleText': '河西印象',
+        'navigationBarTextStyle': '#888',
+        'backgroundColor': '#f4f4f4',
       }
+//      ,
+//      tabBar: {
+//        color: '#888',
+//        selectedColor: '#323d4a',
+//        backgroundColor: '#fff',
+//        borderStyle: 'black',
+//        list: [{
+//          pagePath: 'pages/home',
+//          text: '作品',
+//          iconPath: 'images/home.png',
+//          selectedIconPath: 'images/home_select.png'
+//        },
+////          {
+////          pagePath: 'pages/activity',
+////          text: '活动',
+////          iconPath: 'images/recommend.png',
+////          selectedIconPath: 'images/recommend_select.png'
+////        },
+//          {
+//            pagePath: 'pages/me',
+//            text: '我的',
+//            iconPath: 'images/me.png',
+//            selectedIconPath: 'images/me_select.png'
+//          }]
+//      }
     }
 
     globalData = {
@@ -60,6 +76,22 @@
     constructor () {
       super()
       this.use('requestfix')
+
+      // 网络拦截器
+      this.intercept('request', {
+        config (p) {
+          p.timestamp = +new Date()
+          return p
+        },
+        success (p) {
+          console.log('request success')
+          return p
+        },
+        fail (p) {
+          console.log('request error')
+          return p
+        }
+      })
     }
 
     onLaunch () {
@@ -75,14 +107,14 @@
     }
 
     async testAsync () {
-      const data = await this.sleep(3)
+//      const data = await this.sleep(3)
 //      console.log(data)
     }
 
     getUserInfo (cb) {
       const that = this
       if (this.globalData.userInfo) {
-        cb(this.globalData.userInfo);
+        cb(this.globalData.userInfo)
         return this.globalData.userInfo
       }
 
@@ -169,6 +201,14 @@
           cb(null)
         }
       })
+    }
+
+    //转发
+    onShareAppMessage () {
+      return {
+        title: '河西印象',
+        path: '/pages/recommend'
+      }
     }
   }
 </script>

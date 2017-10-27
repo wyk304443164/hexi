@@ -30,7 +30,7 @@
 
 <template>
 
-  <view class="item-base-container">
+  <view class="item-base-container" wx:if="{{false}}">
 
     <block wx:for="{{itemClass}}" wx:key="index">
       <view class="item-container">

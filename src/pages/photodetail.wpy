@@ -1,7 +1,7 @@
 <style lang="less">
   .tip {
     background-color: #FFFFFF;
-    margin: 20rpx;
+    margin: ~"20rpx";
   }
 </style>
 <template>
@@ -9,24 +9,28 @@
   <view class="tip">
     <htmlParser :parserName="name1" :parserContent.sync="content1"/>
   </view>
+
   <!--<veiw class="tip">-->
-    <!--<htmlParser2 :parserName="name2" :parserContent.sync="content2"/>-->
+  <!--<htmlParser2 :parserName="name2" :parserContent.sync="content2"/>-->
   <!--</veiw>-->
   <!--<veiw class="tip">-->
-    <!--<htmlParser3 :parserName="name3" :parserContent.sync="content3"/>-->
+  <!--<htmlParser3 :parserName="name3" :parserContent.sync="content3"/>-->
   <!--</veiw>-->
 
 </template>
 <script>
   import wepy from 'wepy'
   import htmlParser from '../components/htmlParser'
+  import { API_URL, common } from '../config'
 
   export default class photodetail extends wepy.page {
+
     config = {
       'navigationBarTitleText': '河西印象',
       'navigationBarTextStyle': 'white',
-      'navigationBarBackgroundColor': '#27a87b'
+      'navigationBarBackgroundColor': '#323d4a'
     }
+
     components = {
       htmlParser: htmlParser,
 //      htmlParser2: htmlParser,
@@ -36,11 +40,11 @@
     mixins = []
 
     data = {
-      name1: "myHtmlParserKiner1",
+      name1: 'myHtmlParserKiner1',
 //      name2: "myHtmlParserKiner2",
 //      name3: "myHtmlParserKiner3",
 
-      content1: "<text style='color: gray;'> </text>",
+      content1: '<text style=\'color: gray;\'> </text>',
 //      content2: "<text style='color: red;'>新2</text>",
 //      content3: ""
     }
@@ -49,22 +53,24 @@
 
     events = {}
 
-    async onLoad(option) {
+    onLoad (option) {
+      if (!option.id) return
 
-      console.log(option)
+      let that = this
+      wx.request({
+        url: `${API_URL.edit}?id=${option.id}`,
+        method: 'GET',
+        success: function (response) {
+          console.log(response)
+          that.content1 = response.data.data.content
+          //注意，在此处修改了content2之后，需要手动调用$apply()方法更新数据
+          that.$apply()
+          //调用通知接口通知组件更新数据
+          that.$invoke('htmlParser', 'htmlParserNotice')
+        }
+      })
 
-//      var self = this
-//      wx.request({
-//        url: 'http://baidu.com/',
-//        method: 'POST',
-//        data: {}
-//      }).then((data) => {
-//        self.content1 = data
-//        //注意，在此处修改了content2之后，需要手动调用$apply()方法更新数据
-//        self.$apply()
-//        //调用通知接口通知组件更新数据
-//        this.$invoke('htmlParser', 'htmlParserNotice')
-//      })
     };
   }
+
 </script>

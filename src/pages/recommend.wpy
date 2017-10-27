@@ -1,0 +1,226 @@
+<style lang="less">
+  @import "../style/mixin";
+
+  .base-container {
+    .wh(100%, 100%);
+    position: relative;
+    background-color: @default;
+
+    .study-container {
+      .wh(100%, calc(~"100% - 30rpx"));
+      .allcover;
+      padding-top: ~"30rpx";
+
+      .top-container {
+        height: ~"80rpx";
+        text-align: center;
+        position: relative;
+
+        text {
+          .sc(~"30rpx", white);
+          .sl(2);
+          margin: 0 ~"100rpx";
+        }
+
+        .menu-container {
+          .wh(~"60rpx", ~"60rpx");
+          display: inline-block;
+          position: absolute;
+          right: 0;
+          top: 0;
+          padding: ~" 0 20rpx";
+        }
+
+        image {
+          .wh(100%, 100%);
+          .bis('http://file.vishow.com.cn/pingtuan/2017/10/ecc2e265-964d-43c1-892f-1fb623ee522b.png');
+        }
+
+      }
+
+      .card {
+        height: calc(~"100% - 160rpx");
+
+        swiper {
+          display: inline;
+        }
+
+        swiper-item {
+          text-align: center;
+        }
+
+        wx-swiper-item {
+          width: 90% !important;
+          margin-left: 5% !important;
+        }
+
+        .cardlist {
+          height: 100%;
+
+          .cardcontent {
+            height: calc(~"100% - 70rpx");
+            box-sizing: border-box;
+            margin: ~"35rpx 20rpx";
+            overflow: hidden;
+            /*padding: ~"20rpx";*/
+            color: #aaa;
+            box-shadow: ~"0 4rpx 30rpx 0rpx rgba(0, 0, 0, 0.05)";
+            border-radius: ~"12rpx";
+            /*background-color: white;*/
+            /*background-repeat: no-repeat;*/
+            /*background-size: contain;*/
+            /*background-position: center;*/
+
+            image {
+              .wh(100%, 100%);
+              border-radius: ~"12rpx";
+            }
+
+          }
+        }
+      }
+
+    }
+
+    .bottom-container {
+      .wh(100%, ~"80rpx");
+      text-align: center;
+      position: relative;
+      .page-number {
+        color: #fff;
+        font-size: ~"30rpx";
+        line-height: ~"60rpx";
+      }
+
+      .item-progress {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+      }
+    }
+
+  }
+
+</style>
+
+<template>
+
+  <view class="base-container">
+
+    <view class="study-container">
+
+      <view class="top-container">
+        <text>{{listData ? listData[current].title : ''}}</text>
+
+        <view class="menu-container" @tap="toHome()">
+          <image src=""></image>
+        </view>
+
+      </view>
+
+      <view class="card">
+        <swiper
+          current="{{current}}"
+          indicator-dots="{{false}}"
+          autoplay="{{false}}"
+          vertical="{{false}}"
+          bindchange="bindSwiperChange">
+
+          <block wx:for="{{listData}}" wx:key="{{item.id}}">
+            <swiper-item>
+              <view class="cardlist" @tap="toPhotoDetail({{index}})">
+                <view class="cardcontent">
+
+                  <image src="{{item.picurl}}" mode="aspectFill"></image>
+
+                </view>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+
+      <view class="bottom-container">
+        <span class="page-number">{{current + 1}}/{{listData.length}}</span>
+        <!--最下方的进度条-->
+        <progress
+          class="item-progress"
+          percent="{{(current + 1)/listData.length*100}}"
+          stroke-width="5"
+          activeColor="#FFBD00">
+        </progress>
+      </view>
+
+    </view>
+
+  </view>
+
+</template>
+
+<script>
+
+  import wepy from 'wepy'
+  import { API_URL, common } from '../config'
+
+  export default class recommend extends wepy.page {
+
+    components = {}
+
+    data = {
+      current: 0, // swiper 下标
+      listData: []
+    }
+
+    methods = {
+      bindSwiperChange (e) {
+        this.current = e.detail.current
+      },
+      toPhotoDetail (index) {
+        wx.navigateTo({
+          url: `/pages/photodetail?id=${this.listData[index].id}`
+        })
+      },
+      toHome () {
+        wx.navigateTo({
+          url: `/pages/home`
+        })
+      }
+    }
+
+    events = {}
+
+    watch = {}
+
+    onLoad () {
+      this.getList()
+    }
+
+    onHide () {
+    }
+
+    getList () {
+      let that = this
+      that.listData = []
+      that.$apply()
+      wx.showLoading && wx.showLoading({title: '加载中...'})
+      wx.request({
+        url: API_URL.list,
+        data: {
+          showNum: 10,
+          page: 1,
+        },
+        method: 'GET',
+        success: function (response) {
+          response = response.data.data
+          that.listData = that.listData.concat(response.data)
+          that.$apply()
+        },
+        complete: function () {
+          wx.hideLoading && wx.hideLoading()
+        }
+
+      })
+
+    }
+  }
+</script>

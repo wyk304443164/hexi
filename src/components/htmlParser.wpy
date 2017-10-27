@@ -4,7 +4,7 @@
   .wxParse-img {
     margin: 0 auto;
     width: 100%;
-    min-height: 200rpx;
+    min-height: ~"200rpx";
     display: block;
     background-color: transparent;
   }
@@ -42,7 +42,8 @@
     }
 
     data = {
-      htmlParserTpl: {}
+      htmlParserTpl: {},
+      bindData: {}
     }
 
     events = {
@@ -82,5 +83,10 @@
         console.warn('kinerHtmlParser:', '没有任何内容需要转换', e)
       }
     }
+
+    wxParseImgTap (e) {
+      WxParse.wxParseImgTap(e, this.bindData)
+    }
+
   }
 </script>

@@ -177,7 +177,7 @@
     config = {
       'navigationBarTitleText': '我的',
       'navigationBarTextStyle': 'white',
-      'navigationBarBackgroundColor': '#27a87b'
+      'navigationBarBackgroundColor': '#323d4a'
     }
 
     components = {
