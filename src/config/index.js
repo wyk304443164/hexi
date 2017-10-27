@@ -4,5 +4,6 @@
 
 import common from './common'
 import API_URL from './url'
+import httpUtils from './httpUtils'
 
-export { common, API_URL }
+export { common, API_URL, httpUtils }

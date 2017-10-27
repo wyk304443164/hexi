@@ -160,7 +160,7 @@
 <script>
 
   import wepy from 'wepy'
-  import { API_URL, common } from '../config'
+  import { API_URL, commom, httpUtils } from '../config'
 
   export default class recommend extends wepy.page {
 
@@ -202,25 +202,18 @@
       let that = this
       that.listData = []
       that.$apply()
-      wx.showLoading && wx.showLoading({title: '加载中...'})
-      wx.request({
-        url: API_URL.list,
-        data: {
-          showNum: 10,
-          page: 1,
-        },
-        method: 'GET',
-        success: function (response) {
-          response = response.data.data
-          that.listData = that.listData.concat(response.data)
-          that.$apply()
-        },
-        complete: function () {
-          wx.hideLoading && wx.hideLoading()
-        }
-
+      httpUtils.get(`${API_URL.list}?showNum=${10}&page=${1}`).then((data) => {
+        that.listData = that.listData.concat(data.data)
+        that.$apply()
       })
+    }
 
+    //转发
+    onShareAppMessage () {
+      return {
+        title: '河西印象',
+        path: '/pages/recommend'
+      }
     }
   }
 </script>

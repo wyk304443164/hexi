@@ -21,7 +21,7 @@
 <script>
   import wepy from 'wepy'
   import htmlParser from '../components/htmlParser'
-  import { API_URL, common } from '../config'
+  import { API_URL, common, httpUtils } from '../config'
 
   export default class photodetail extends wepy.page {
 
@@ -55,21 +55,28 @@
 
     onLoad (option) {
       if (!option.id) return
-
       let that = this
-      wx.request({
-        url: `${API_URL.edit}?id=${option.id}`,
-        method: 'GET',
-        success: function (response) {
-          console.log(response)
-          that.content1 = response.data.data.content
-          //注意，在此处修改了content2之后，需要手动调用$apply()方法更新数据
-          that.$apply()
-          //调用通知接口通知组件更新数据
-          that.$invoke('htmlParser', 'htmlParserNotice')
-        }
+
+      httpUtils.get(`${API_URL.edit}?id=${option.id}`).then((data) => {
+        that.content1 = data.content
+        //注意，在此处修改了content2之后，需要手动调用$apply()方法更新数据
+        that.$apply()
+        //调用通知接口通知组件更新数据
+        that.$invoke('htmlParser', 'htmlParserNotice')
       })
 
+//      httpUtils.get({
+//          url: `${API_URL.edit}`,
+//          params: {id: option.id},
+//          success: function (data) {
+//            that.content1 = data.content
+//            //注意，在此处修改了content2之后，需要手动调用$apply()方法更新数据
+//            that.$apply()
+//            //调用通知接口通知组件更新数据
+//            that.$invoke('htmlParser', 'htmlParserNotice')
+//          }
+//        }
+//      )
     };
   }
 
