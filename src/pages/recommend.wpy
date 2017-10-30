@@ -202,10 +202,11 @@
       let that = this
       that.listData = []
       that.$apply()
-      httpUtils.get(`${API_URL.list}?showNum=${10}&page=${1}`).then((data) => {
-        that.listData = that.listData.concat(data.data)
-        that.$apply()
-      })
+      httpUtils.get(`${API_URL.list}?showNum=${10}&page=${1}`)
+        .then((data) => {
+          that.listData = that.listData.concat(data.data)
+          that.$apply()
+        })
     }
 
     //转发

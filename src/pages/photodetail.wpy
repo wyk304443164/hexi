@@ -57,13 +57,14 @@
       if (!option.id) return
       let that = this
 
-      httpUtils.get(`${API_URL.edit}?id=${option.id}`).then((data) => {
-        that.content1 = data.content
-        //注意，在此处修改了content2之后，需要手动调用$apply()方法更新数据
-        that.$apply()
-        //调用通知接口通知组件更新数据
-        that.$invoke('htmlParser', 'htmlParserNotice')
-      })
+      httpUtils.get(`${API_URL.edit}?id=${option.id}`)
+        .then((data) => {
+          that.content1 = data.content
+          //注意，在此处修改了content2之后，需要手动调用$apply()方法更新数据
+          that.$apply()
+          //调用通知接口通知组件更新数据
+          that.$invoke('htmlParser', 'htmlParserNotice')
+        })
 
 //      httpUtils.get({
 //          url: `${API_URL.edit}`,

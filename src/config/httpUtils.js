@@ -1,7 +1,7 @@
-let requestHandler = {
-  url: '',
-  params: {}
-}
+// let requestHandler = {
+//   url: '',
+//   params: {}
+// }
 
 //GET请求
 function GET (requestHandler) {
@@ -20,7 +20,7 @@ function POST (requestHandler) {
 }
 
 function request (method, requestHandler) {
-  //注意：可以对params加密等处理
+  //加密
   let params = requestHandler.params
   wx.showLoading && wx.showLoading({title: '加载中...'})
   return new Promise((resolve, reject) => {
@@ -30,7 +30,7 @@ function request (method, requestHandler) {
       method: method, // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function (res) {
-        //注意：可以对参数解密等处理
+        //解密
         resolve(res.data.data)
       },
       fail: function () {
