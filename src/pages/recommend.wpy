@@ -50,17 +50,18 @@
         }
 
         wx-swiper-item {
-          width: 90% !important;
-          margin-left: 5% !important;
+          /*width: 90% !important;*/
+          /*margin-left: 5% !important;*/
         }
 
         .cardlist {
           height: 100%;
 
           .cardcontent {
-            height: calc(~"100% - 70rpx");
+            /*height: calc(~"100% - 70rpx");*/
+            height: 100%;
             box-sizing: border-box;
-            margin: ~"35rpx 20rpx";
+            margin: ~"0rpx 40rpx";
             overflow: hidden;
             /*padding: ~"20rpx";*/
             color: #aaa;
