@@ -1,0 +1,82 @@
+<style lang="less">
+  @import "../style/carglass";
+</style>
+
+<template>
+
+  <view class="base-container">
+    <view class="choose-img">
+      <view>
+        <text>{{text}}</text>
+        <image src="{{'../images/car/car_tyre.jpg'}}" mode="aspectFit"></image>
+      </view>
+    </view>
+
+    <view class="page__bd">
+      <view class="section">
+        <text class="label">你看到的数字</text>
+        <input type="number" maxlength="4" confirm-type="next" bindinput="yearChange"
+               placeholder="四位">
+      </view>
+    </view>
+
+    <view class="date-container">
+      <text>{{yearStr}}</text>
+    </view>
+
+  </view>
+
+</template>
+
+<script>
+
+  import wepy from 'wepy'
+  import { API_URL, common, httpUtils } from '../config'
+
+  export default class cartyre extends wepy.page {
+
+    config = {
+      'navigationBarTitleText': '计算',
+      'navigationBarTextStyle': 'black',
+      'navigationBarBackgroundColor': '#fff',
+      'backgroundTextStyle': 'dark'
+    }
+
+    data = {
+      yearValue: '',
+      yearStr: '请输入您看到的数字'
+    }
+
+    methods = {
+      yearChange (e) {
+        this.yearValue = e.detail.value
+        this.$apply()
+      }
+    }
+
+    watch = {
+      yearValue (curVal, oldVal) {
+        this.$apply()
+        this.showDate()
+      }
+    }
+
+    /**
+     * 开始计算日期
+     */
+
+    showDate () {
+      if (common.isEmpty(this.yearValue) || this.yearValue.length < 4) {
+        this.yearStr = '请输入四位数字'
+      } else {
+        let year = `20${this.yearValue.substr(2)}`
+        let week = this.yearValue.substr(0, 2)
+        let tempYear = `${year}-01-01`
+        let timestamp = new Date(tempYear).getTime()
+        timestamp += week * 7 * 24 * 3600 * 1000
+        this.yearStr = common.formatDateTime(timestamp).substr(0, 10)
+      }
+      this.$apply()
+    }
+  }
+</script>

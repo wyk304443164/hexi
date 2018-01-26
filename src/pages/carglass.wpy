@@ -1,0 +1,89 @@
+<style lang="less">
+  @import "../style/mixin";
+
+  .base-container {
+    /*.wh(100%, 100%);*/
+    min-height: 100%;
+    position: relative;
+    background-color: @default;
+
+    .choose-img {
+      text-align: center;
+
+      text {
+        padding-top: ~"20rpx";
+        padding-bottom: ~"10rpx";
+        color: #fff;
+        display: block;
+        font-size: ~"30rpx";
+      }
+
+      image {
+        height: ~"300rpx";
+      }
+    }
+  }
+
+</style>
+
+<template>
+
+  <view class="base-container">
+
+    <view class="choose-img">
+      <block wx:for="{{listGlass}}" wx:key="{{item.index}}">
+
+        <view @tap="linkToGlassClass({{item.index}})">
+
+          <text>{{item.text}}</text>
+
+          <image src="{{'../images/car/car_glass_'+item.index+'.jpg'}}" mode="aspectFit"></image>
+
+        </view>
+
+      </block>
+    </view>
+
+  </view>
+
+</template>
+
+<script>
+
+  import wepy from 'wepy'
+
+  export default class carglass extends wepy.page {
+
+    config = {
+      'navigationBarTitleText': '点击选择玻璃种类',
+      'navigationBarTextStyle': 'white',
+      'navigationBarBackgroundColor': '#323d4a',
+      'backgroundTextStyle': 'dark'
+    }
+
+    components = {}
+
+    data = {
+      listGlass: [{index: 1, text: '小点+数字 / 数字+小点'}, {index: 2, text: '数字小点大点'}, {index: 3, text: '两行'}]
+    }
+
+    methods = {
+      linkToGlassClass (index) {
+        wx.navigateTo({
+          url: `/pages/carglass${index}?text=${this.listGlass[index - 1].text}`
+        })
+      }
+    }
+
+    events = {}
+
+    watch = {}
+
+    onLoad () {
+    }
+
+    onHide () {
+    }
+
+  }
+</script>

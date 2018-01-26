@@ -1,0 +1,63 @@
+@import "../style/mixin";
+
+.base-container {
+  min-height: 100%;
+  position: relative;
+  background-color: #fff;
+
+  .choose-img {
+    text-align: center;
+
+    text {
+      padding-top: ~"20rpx";
+      padding-bottom: ~"10rpx";
+      color: #888;
+      display: block;
+      font-size: ~"30rpx";
+    }
+
+    image {
+      height: ~"300rpx";
+    }
+  }
+
+  .page__bd {
+    margin-top: ~"20rpx";
+    .section {
+      padding: 0 ~"20rpx";
+      .label {
+        color: #888;
+        font-size: ~"30rpx";
+        margin-top: ~"20rpx";
+      }
+
+      input {
+        border: 1px solid #ccc;
+        width: ~"100rpx";
+        margin-top: ~"20rpx";
+        text-align: center;
+      }
+
+      picker {
+        width: ~"100rpx";
+        margin-top: ~"20rpx";
+        border: 1px solid #ccc;
+        border-width: 0 0 1px;
+        text-align: center;
+      }
+    }
+
+    .radio {
+      display: block;
+      margin-top: ~"20rpx";
+    }
+  }
+
+  .date-container {
+    text-align: center;
+    margin-top: ~"20rpx";
+    text {
+      font-size: ~"80rpx";
+    }
+  }
+}

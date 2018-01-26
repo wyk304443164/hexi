@@ -1,0 +1,174 @@
+<style lang="less">
+  @import "../style/carglass";
+</style>
+
+<template>
+
+  <view class="base-container">
+    <view class="choose-img">
+      <view>
+        <text>{{text}}</text>
+        <image src="{{'../images/car/car_glass_1.jpg'}}" mode="aspectFit"></image>
+      </view>
+    </view>
+
+    <view class="page__bd">
+      <view class="section">
+        <text class="label">你看到的数字</text>
+        <input focus="{{dataFocus}}" type="number" maxlength="1" confirm-type="next" bindinput="yearChange"
+               placeholder="0~9">
+      </view>
+    </view>
+
+    <view class="page__bd">
+      <view class="section">
+        <text class="label">数字在点的</text>
+        <radio-group class="radio-group" bindchange="radioChange">
+          <label class="radio" wx:for="{{radioItems}}" wx:key="{{item.index}}">
+            <radio value="{{item.value}}" checked="{{item.checked}}"/>
+            {{item.name}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+
+    <view class="page__bd">
+      <view class="section">
+        <text class="label">圆点数量</text>
+        <picker bindchange="bindPicker" value="{{pointIndex}}"
+                range="{{pointArray}}">
+          <view>
+            {{pointArray[pointIndex]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="date-container">
+      <text>{{yearStr}}</text>
+    </view>
+
+  </view>
+
+</template>
+
+<script>
+
+  import wepy from 'wepy'
+  import { API_URL, common, httpUtils } from '../config'
+
+  export default class carglass1 extends wepy.page {
+
+    config = {
+      'navigationBarTitleText': '计算',
+      'navigationBarTextStyle': 'black',
+      'navigationBarBackgroundColor': '#fff',
+      'backgroundTextStyle': 'dark'
+    }
+
+    components = {}
+
+    data = {
+      dataFocus: false, // 使输入法获取焦点
+      text: '',
+      radioItems: [
+        {name: '前面', value: 'prev', checked: true},
+        {name: '后面', value: 'next'}
+      ],
+      pointIndex: 0,
+      pointArray: ['1', '2', '3', '4', '5', '6', '7'],
+      yearValue: '',
+      yearStr: '请输入您看到的数字'
+    }
+
+    methods = {
+      radioChange (e) {
+        let checked = e.detail.value
+        this.changeRadio(checked)
+      },
+      bindPicker (e) {
+        this.pointIndex = Number(e.detail.value)
+        if (this.pointIndex >= 6) { // 第6个--7
+          // 前面最大为 6
+          this.changeRadio('next')
+        }
+        this.$apply()
+      },
+      yearChange (e) {
+        this.yearValue = e.detail.value
+        this.$apply()
+      }
+    }
+
+    events = {}
+
+    watch = {
+      yearValue (curVal, oldVal) {
+        // console.log(curVal)
+        // console.log(oldVal)
+        this.dataFocus = false
+        this.$apply()
+        console.log(this.dataFocus)
+        this.showDate()
+      },
+      pointIndex (curVal, oldVal) {
+        // console.log(curVal)
+        // console.log(oldVal)
+        this.showDate()
+      },
+      radioItems (curVal, oldVal) {
+        // console.log(curVal)
+        // console.log(oldVal)
+        this.showDate()
+      }
+    }
+
+    onLoad (option) {
+      console.log(option.text)
+      this.text = option.text
+    }
+
+    onHide () {
+    }
+
+    /**
+     * 改变选择框
+     * @param checked
+     */
+
+    changeRadio (checked) {
+      for (let i = 0; i < this.radioItems.length; i++) {
+        let _checked = checked.indexOf(this.data.radioItems[i].value) !== -1
+        if (i === 0 && _checked && this.pointIndex > 5) {
+          // 前面时，最大为6
+          this.pointIndex = 5 // 第5个
+        }
+        this.radioItems[i].checked = _checked
+      }
+      this.$apply()
+    }
+
+    /**
+     * 开始计算日期
+     */
+
+    showDate () {
+      if (common.isEmpty(this.yearValue)) {
+        this.yearStr = '请输入您看到的数字'
+      } else {
+        let year = `20*${this.yearValue}`
+        let prevNext = 'prev'
+        for (let i = 0; i < this.radioItems.length; i++) {
+          if (this.radioItems[i].checked) {
+            prevNext = this.radioItems[i].value
+            break
+          }
+        }
+        let month = (prevNext === 'prev' ? 7 : 13) - Number(this.pointArray[this.pointIndex])
+        month = month < 10 ? `0${month}` : month
+        this.yearStr = `${year}年${month}月`
+      }
+      this.$apply()
+    }
+  }
+</script>

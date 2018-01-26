@@ -29,6 +29,14 @@
     config = {
       pages: [
         'pages/recommend',
+        'pages/car',
+        'pages/carglass',
+        'pages/carglass1',
+        'pages/carglass2',
+        'pages/carglass3',
+        'pages/cartyre',
+        'pages/carflow',
+        'pages/carknow',
         'pages/home',
         'pages/index',
         'pages/photodetail',
