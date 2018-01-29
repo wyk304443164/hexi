@@ -19,7 +19,7 @@
       }
 
       image {
-        height: ~"300rpx";
+        height: ~"250rpx";
       }
     }
   }

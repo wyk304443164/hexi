@@ -28,15 +28,14 @@
   export default class extends wepy.app {
     config = {
       pages: [
-        'pages/recommend',
-        'pages/car',
+        'pages/carflow',
         'pages/carglass',
         'pages/carglass1',
         'pages/carglass2',
         'pages/carglass3',
         'pages/cartyre',
-        'pages/carflow',
         'pages/carknow',
+        'pages/recommend',
         'pages/home',
         'pages/index',
         'pages/photodetail',
@@ -55,32 +54,31 @@
         'connectSocket': 10000,
         'uploadFile': 20000,
         'downloadFile': 20000,
+      },
+      tabBar: {
+        color: '#888',
+        selectedColor: '#323d4a',
+        backgroundColor: '#fff',
+        borderStyle: 'black',
+        list: [{
+          pagePath: 'pages/carflow',
+          text: '流程',
+          iconPath: 'images/home.png',
+          selectedIconPath: 'images/home_select.png'
+        },
+          {
+            pagePath: 'pages/carglass',
+            text: '玻璃',
+            iconPath: 'images/recommend.png',
+            selectedIconPath: 'images/recommend_select.png'
+          },
+          {
+            pagePath: 'pages/cartyre',
+            text: '轮胎',
+            iconPath: 'images/me.png',
+            selectedIconPath: 'images/me_select.png'
+          }]
       }
-//      ,
-//      tabBar: {
-//        color: '#888',
-//        selectedColor: '#323d4a',
-//        backgroundColor: '#fff',
-//        borderStyle: 'black',
-//        list: [{
-//          pagePath: 'pages/home',
-//          text: '作品',
-//          iconPath: 'images/home.png',
-//          selectedIconPath: 'images/home_select.png'
-//        },
-////          {
-////          pagePath: 'pages/activity',
-////          text: '活动',
-////          iconPath: 'images/recommend.png',
-////          selectedIconPath: 'images/recommend_select.png'
-////        },
-//          {
-//            pagePath: 'pages/me',
-//            text: '我的',
-//            iconPath: 'images/me.png',
-//            selectedIconPath: 'images/me_select.png'
-//          }]
-//      }
     }
 
     globalData = {
