@@ -35,7 +35,7 @@
 
     <panel>
       <view class="title" slot="title">其它测试</view>
-      <button @tap="toast" size="mini">第三方组件</button>
+      <!--<button @tap="toast" size="mini">第三方组件</button>-->
       <button @tap="communicate" size="mini">组件通信</button>
       <button @tap="tap" size="mini">混合TAP事件</button>
     </panel>
@@ -73,7 +73,7 @@
       <list></list>
     </panel>
 
-    <toast />
+    <!--<toast />-->
   </view>
 </template>
 
@@ -83,7 +83,6 @@
   import Panel from '../components/panel'
   import Counter from '../components/counter'
   import Group from '../components/group'
-  import Toast from 'wepy-com-toast'
   import testMixin from '../mixins/test'
 
   export default class Index extends wepy.page {
@@ -95,8 +94,7 @@
       counter1: Counter,
       counter2: Counter,
       list: List,
-      group: Group,
-      toast: Toast
+      group: Group
     }
 
     mixins = [testMixin]
@@ -166,16 +164,16 @@
       plus () {
         this.mynum++
       },
-      toast () {
-        let promise = this.$invoke('toast', 'show', {
-          title: '自定义标题',
-          img: 'https://raw.githubusercontent.com/kiinlam/wetoast/master/images/star.png'
-        })
-
-        promise.then((d) => {
-          console.log('toast done')
-        })
-      },
+      // toast () {
+      //   let promise = this.$invoke('toast', 'show', {
+      //     title: '自定义标题',
+      //     img: 'https://raw.githubusercontent.com/kiinlam/wetoast/master/images/star.png'
+      //   })
+      //
+      //   promise.then((d) => {
+      //     console.log('toast done')
+      //   })
+      // },
       tap () {
         console.log('do noting from ' + this.$name)
       },

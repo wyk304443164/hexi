@@ -1,8 +1,10 @@
-const path = require('path');
+const path = require('path')
 var prod = process.env.NODE_ENV === 'production'
 
 module.exports = {
   wpyExt: '.wpy',
+  eslint: true,
+  cliLogs: !prod,
   build: {
     web: {
       htmlTemplate: path.join('src', 'index.template.html'),
@@ -10,7 +12,14 @@ module.exports = {
       jsOutput: path.join('web', 'index.js')
     }
   },
-  eslint: true,
+  resolve: {
+    alias: {
+      counter: path.join(__dirname, 'src/components/counter'),
+      '@': path.join(__dirname, 'src')
+    },
+    aliasFields: ['wepy'],
+    modules: ['node_modules']
+  },
   compilers: {
     less: {
       compress: true
@@ -31,13 +40,15 @@ module.exports = {
       ]
     }
   },
-  plugins: {
+  plugins: {},
+  appConfig: {
+    noPromiseAPI: ['createSelectorQuery']
   }
 }
 
 if (prod) {
 
-  delete module.exports.compilers.babel.sourcesMap;
+  delete module.exports.compilers.babel.sourcesMap
   // 压缩sass
   // module.exports.compilers['sass'] = {outputStyle: 'compressed'}
 
@@ -48,8 +59,7 @@ if (prod) {
   module.exports.plugins = {
     uglifyjs: {
       filter: /\.js$/,
-      config: {
-      }
+      config: {}
     },
     imagemin: {
       filter: /\.(jpg|png|jpeg)$/,
