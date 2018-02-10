@@ -1,0 +1,62 @@
+<style lang="less">
+  @import "../style/mixin";
+
+  .base-container {
+    min-height: 100%;
+    position: relative;
+
+    padding: ~"40rpx" ~"40rpx" 0;
+
+    text {
+      display: block;
+      color: #323d4a;
+      font-size: ~"30rpx";
+    }
+
+    image {
+      width: 100%;
+    }
+
+  }
+
+</style>
+
+<template>
+
+  <view class="base-container">
+
+    <text>{{detailList[index-1].content}}</text>
+
+    <image wx:if="{{!!index}}" src="../style/images/car/{{index}}.png" lazy-load="{{true}}" mode="aspectFill"></image>
+
+  </view>
+
+</template>
+
+<script>
+
+  import wepy from 'wepy'
+  import carsList from '../config/carsList'
+
+  export default class carflowdetail extends wepy.page {
+
+    config = {
+      'navigationBarTitleText': '流程',
+      'navigationBarTextStyle': 'black',
+      'navigationBarBackgroundColor': '#fff',
+      'backgroundTextStyle': 'dark'
+    }
+
+    data = {
+      detailList: carsList,
+      index: 0
+    }
+
+    methods = {}
+
+    onLoad (option) {
+      this.index = Number(option.index) + 1
+      this.$apply()
+    }
+  }
+</script>

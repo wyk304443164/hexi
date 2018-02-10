@@ -5,6 +5,17 @@
     min-height: 100%;
     position: relative;
 
+    .start-container {
+      padding: ~"40rpx" ~"40rpx" 0;
+
+      text {
+        display: block;
+        color: #323d4a;
+        font-size: ~"30rpx";
+      }
+
+    }
+
     .list-container {
       padding: 0 ~"40rpx";
 
@@ -44,26 +55,18 @@
 <template>
 
   <view class="base-container">
-    <button @tap="linkToCarKnow">理论知识(摘自知乎)</button>
-
-    <text>让我们开始吧</text>
-
-    // 配图
-    你需要带好：漆膜仪，强光手电筒，和一颗平淡的心
-
-    // 配图
-    首先明确你的需求：
-    1.家用，舒适，耐用，省油
-    2.动力，颜值，年轻
-    3.豪华
-
-    然后开始找你心仪的车，比如你喜欢日系省心，喜欢德系鸡血动力，喜欢美系粗暴
-
-    可以上二手车之家寻找你心仪的车
+    <view class="start-container">
+      <text>你需要带好：漆膜仪，强光手电筒，和一颗平淡的心</text>
+      <text>首先明确你的需求：</text>
+      <text>1.家用，舒适，耐用，省油，动力，颜值，年轻，豪华</text>
+      <text>2.然后开始找你心仪的车，比如你喜欢日系省心，喜欢德系鸡血动力，喜欢美系粗暴</text>
+      <text>3.可以上二手车之家寻找你心仪的车</text>
+      <text>4.购买之前请不要吝啬花20块钱查一下维修保养记录</text>
+    </view>
 
     <view class="list-container">
       <block wx:for="{{detailList}}" wx:key="{{item}}">
-        <view class="item">
+        <view class="item" @tap="linkToDetail({{index}})">
           <image src="../style/images/car/{{index +1}}.png" lazy-load="{{true}}" mode="aspectFill"></image>
           <view class="bottom">
             <text>{{index+1}}.{{item.title}}</text>
@@ -72,6 +75,8 @@
       </block>
     </view>
 
+    <button @tap="linkToCarKnow">理论知识(摘自知乎)</button>
+
   </view>
 
 </template>
@@ -79,6 +84,7 @@
 <script>
 
   import wepy from 'wepy'
+  import carsList from '../config/carsList'
 
   export default class carflow extends wepy.page {
 
@@ -90,23 +96,7 @@
     }
 
     data = {
-      detailList: [
-        {title: '机盖', content: '打开发动机盖，查看机盖铰链两侧螺丝，仔细观察是否有被拧动过的痕迹（精修复会重新上漆，但可能会有两层漆），如果有那么接下来重点查看前方是否出过事故'},
-        {title: '左右轮旋', content: '查看左右轮旋是否有变形(变形就不用继续看下去了)，是否有重新喷漆，有拧动过。原厂螺丝一般会有在螺丝上画一条线'},
-        {title: '翼子板螺丝', content: '翼子板螺丝，一般碰撞凹进去，是无需卸下来再进行修复的'},
-        {title: '翼子板梁', content: '翼子板梁(固定翼子板)，看原厂焊点'},
-        {title: '水箱框架', content: '查看水箱框架螺丝是否有被拧动过的痕迹，如果是焊接固定水箱框架的，那么请注意焊接必定破坏了原厂焊点'},
-        {
-          title: '纵梁',
-          content: '查看纵梁吸能盒，前纵梁，和防撞钢梁是否有修复的痕迹(一般能看到褶皱)，切割重新打磨上漆看不出，可以查看原厂焊点是否完整（需要上架子）。切割纵梁：1.看两边颜色，2.连接处的螺丝有没有拆卸，3.连接处的焊点。如果有过修复的痕迹那么基本不需要继续往下看'
-        },
-        {title: '发动机', content: '查看发动机基座螺丝，是否有拧动过的痕迹'},
-        {title: '后备箱盖', content: '查看后备箱盖螺丝，是否拧动，部分车需要拨开隔音棉，后备箱盖原厂胶条，盖子边，连接处是否生锈和明显的修复痕迹'},
-        {title: '后备箱胎坑', content: '查看后备箱胎坑，是否有被钣金，左右对比，如果后备箱整体切割，需要检查底大边是否有焊接的痕迹（上架子）'},
-        {title: '车门铰链螺丝', content: '车门铰链螺丝，如果车门受到过比较严重的撞击，一般是需要拆卸车门，此时需要检查螺丝是否有被拧动'},
-        {title: '车门框密封条', content: '车门框密封条，将它一点点扒开，如果有过修复的痕迹，肯定会重新喷漆，但是原厂的焊点势必没有了，或者不那么规整'},
-        {title: '泡水', content: '泡水，检查各个角落的泥沙，比如空调，手套箱，座椅下，不是灰'}
-      ]
+      detailList: carsList
     }
 
     methods = {
@@ -114,7 +104,40 @@
         wx.navigateTo({
           url: `/pages/carknow`
         })
+      },
+      linkToDetail (index) {
+        wx.navigateTo({
+          url: `/pages/carflowdetail?index=${index}`
+        })
       }
+    }
+
+    onShow () {
+      if (wx.setClipboardData) {
+        let random = this.randomString()
+        wx.setClipboardData({
+          data: `！${random} ￥OmkLUK45WB￥`,
+          success: function (res) {
+            wx.getClipboardData({
+              success: function (res) {
+                console.log(res.data) // data
+              }
+            })
+          }
+        })
+      }
+    }
+
+    randomString (len) {
+      len = len || 8
+      let $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
+      /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+      let maxPos = $chars.length
+      let pwd = ''
+      for (let i = 0; i < len; i++) {
+        pwd += $chars.charAt(Math.floor(Math.random() * maxPos))
+      }
+      return pwd
     }
   }
 </script>

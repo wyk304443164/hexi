@@ -29,6 +29,7 @@
     config = {
       pages: [
         'pages/carflow',
+        'pages/carflowdetail',
         'pages/carglass',
         'pages/carglass1',
         'pages/carglass2',
